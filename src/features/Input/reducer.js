@@ -1,3 +1,5 @@
+import { CORRECT_GUESS } from "./actions";
+
 const initialState = false;
 
 /**
