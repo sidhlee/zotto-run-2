@@ -10,6 +10,11 @@ export const findByAttr = (wrapper, val) => {
   return wrapper.find(`[data-test="${val}"]`);
 };
 
+/**
+ * Manually check propTypes and run test for errors
+ * @param {ReactElement} component
+ * @param {object} expectedProps
+ */
 export const checkProps = (component, expectedProps) => {
   const propError = checkPropTypes(
     component.propTypes,
