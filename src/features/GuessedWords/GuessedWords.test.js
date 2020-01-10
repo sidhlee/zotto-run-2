@@ -1,6 +1,8 @@
 import React from "react";
 import { shallow, ShallowWrapper } from "enzyme";
 
+import { getLetterMatchCount } from "../../common/utils/";
+
 import {
   findByTestAttr,
   checkProps
@@ -8,7 +10,7 @@ import {
 import GuessedWords from "./GuessedWords";
 
 const defaultProps = {
-  GuessedWords: [{ guessedWord: "train", letterMatchCount: 3 }]
+  guessedWords: [{ guessedWord: "train", letterMatchCount: 3 }]
 };
 
 /**
@@ -25,15 +27,68 @@ const setup = (props = {}) => {
   return shallow(<GuessedWords {...setupProps} />);
 };
 
-test("does not throw warning with expected props", () => {});
+const secretWord = "party";
+
+test("does not throw warning with expected props", () => {
+  checkProps(GuessedWords, defaultProps);
+});
 
 describe("if there are no words guessed", () => {
-  test("renders without error", () => {});
-  test("renders an instruction to guess a word", () => {});
+  let wrapper;
+  beforeEach(() => {
+    wrapper = setup({ guessedWord: [] });
+  });
+  test("renders without error", () => {
+    const components = findByTestAttr(
+      wrapper,
+      "component-guessed-words"
+    );
+    expect(components.length).toBe(1);
+  });
+  test("renders an instruction to guess a word", () => {
+    const instructions = findByTestAttr(
+      wrapper,
+      "guess-instructions"
+    );
+    expect(instructions.text().length).not.toBe(0);
+  });
 });
 
 describe("if there are words guessed", () => {
-  test("renders without error", () => {});
-  test("renders 'guessed words' section", () => {});
-  test("correct number of guessed words shown", () => {});
+  const guessedWords = [
+    {
+      guessedWord: "train",
+      letterMatchCount: getLetterMatchCount("train", secretWord)
+    },
+    {
+      guessedWord: "agile",
+      letterMatchCount: getLetterMatchCount("agile", secretWord)
+    },
+    {
+      guessedWord: "train",
+      letterMatchCount: getLetterMatchCount("train", secretWord)
+    }
+  ];
+  let wrapper;
+  beforeEach(() => {
+    wrapper = setup({ guessedWords });
+  });
+  test("renders without error", () => {
+    const components = findByTestAttr(
+      wrapper,
+      "component-guessed-words"
+    );
+    expect(components.length).toBe(1);
+  });
+  test("renders 'guessed words' section", () => {
+    const guessedWordsNodes = findByTestAttr(
+      wrapper,
+      "guessed-words"
+    );
+    expect(guessedWordsNodes.length).toBe(1);
+  });
+  test("correct number of guessed words shown", () => {
+    const guessedWordNodes = findByTestAttr(wrapper, "guessed-word");
+    expect(guessedWordNodes.length).toBe(guessedWords.length);
+  });
 });
