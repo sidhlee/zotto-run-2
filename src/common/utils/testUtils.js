@@ -1,4 +1,7 @@
 import checkPropTypes from "check-prop-types";
+import { createStore, applyMiddleware } from "react";
+import { middlewares } from "../../app/store";
+import rootReducer from "../../app/rootReducer";
 
 /**
  * Return node(s) with the given data-test attribute.
@@ -23,4 +26,19 @@ export const checkProps = (component, expectedProps) => {
     component.name
   );
   expect(propError).toBeUndefined();
+};
+
+/**
+ * Create a testing store with imported reducers, middlewares, and initial state.
+ * globals: rootReducer
+ * @function storeFactory
+ * @param {object} initialState - Initial state for store.
+ * @returns {Store} - Redux store
+ */
+export const storeFactory = initialState => {
+  return createStore(
+    rootReducer,
+    initialState,
+    applyMiddleware(...middlewares)
+  );
 };
