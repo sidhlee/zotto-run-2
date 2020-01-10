@@ -8,7 +8,7 @@ const initialState = false;
  * @param {object} action - action to be reduced.
  */
 const successReducer = (state = initialState, action) => {
-  return state;
+  return null;
 };
 
 export default successReducer;
