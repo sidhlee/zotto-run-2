@@ -1,5 +1,5 @@
 import checkPropTypes from "check-prop-types";
-import { createStore, applyMiddleware } from "react";
+import { createStore, applyMiddleware } from "redux";
 import { middlewares } from "../../app/store";
 import rootReducer from "../../app/rootReducer";
 
