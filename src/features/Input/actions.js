@@ -9,5 +9,15 @@ export const GUESS_WORD = "GUESS_WORD";
  * @returns {function} - Redux thunk function.
  */
 export const guessWord = guessedWord => {
-  return (dispatch, getState) => {};
+  return (dispatch, getState) => {
+    const secretWord = getState().secretWord;
+    dispatch({
+      type: GUESS_WORD,
+      guessedWord,
+      secretWord
+    });
+    if (guessedWord === secretWord) {
+      dispatch({ type: CORRECT_GUESS });
+    }
+  };
 };

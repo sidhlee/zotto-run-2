@@ -5,3 +5,4 @@
 ## New in this run
 
 - "feature/common" folder structure
+- Refactor `guessWord` action dispatcher so that letterMatchCount is computed inside guessedWords reducer.
