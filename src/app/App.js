@@ -1,5 +1,4 @@
 import React from "react";
-import logo from "../logo.svg";
 import Congrats from "../features/Congrats/Congrats";
 import GuessedWords from "../features/GuessedWords/GuessedWords";
 import { getLetterMatchCount } from "../common/utils/";
